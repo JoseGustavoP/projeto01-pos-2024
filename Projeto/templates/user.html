@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ user_data.get('nome_usual', 'Nome não disponível') }}</h2>
+    <img src="{{ user_data.get('url_foto_150x200', '/static/default-profile.png') }}" alt="Foto do Usuário">
+
+    {% for key, value in user_data.items() %}
+        <p><b>{{ key }}</b>: {{ value }}</p>
+    {% endfor %}
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+{% endblock %}
