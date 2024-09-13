@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim - SUAP OAuth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Boletim Escolar</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Nota 4</th>
+                <th>Média Final</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for disciplina in boletim %}
+            <tr>
+                <td>{{ disciplina['disciplina'] }}</td>
+                <td>{{ disciplina['nota_etapa_1'] }}</td>
+                <td>{{ disciplina['nota_etapa_2'] }}</td>
+                <td>{{ disciplina['nota_etapa_3'] }}</td>
+                <td>{{ disciplina['nota_etapa_4'] }}</td>
+                <td>{{ disciplina['media_disciplina'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('profile') }}">Voltar para o perfil</a>
+</body>
+</html>
