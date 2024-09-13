@@ -55,6 +55,19 @@ def auth():
         logging.error(f"Error during authorization: {e}")
         flash('Authorization failed. Please try again.')
         return redirect(url_for('index'))
+    
+@app.route('/boletim')
+def boletim():
+    if 'suap_token' in session:
+        try:
+            # Substitua o endpoint abaixo pelo endpoint correto do boletim no SUAP
+            response = oauth.suap.get('v2/minhas-informacoes/boletim')
+            response.raise_for_status()
+            boletim_data = response.json()  # Ajuste conforme o formato da resposta do SUAP
+            return render_template('boletim.html', boletim=boletim_data)
+        except Exception as e:
+            logging.error(f"Error fetching boletim data: {e}")
+            flash('Failed to fetch boletim data. Please try again later.')
 
 if __name__ == '__main__':
     app.run()
