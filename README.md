@@ -22,5 +22,5 @@
   ```
 
 # Grupo
-- José Gustavo
 - Jaqueline Silva
+- José Gustavo
