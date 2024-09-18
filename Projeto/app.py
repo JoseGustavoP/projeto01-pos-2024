@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, session, request, render_template, flash
 from authlib.integrations.flask_client import OAuth
 import logging
+import requests
 
 app = Flask(__name__)
 app.debug = True
@@ -56,18 +57,76 @@ def auth():
         flash('Authorization failed. Please try again.')
         return redirect(url_for('index'))
     
+
+def get_boletim(ano_letivo, periodo_letivo):
+    token = session.get('suap_token', {}).get('access_token')
+    if not token:
+        return None
+
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+
+    boletim_url = f"https://suap.ifrn.edu.br/api/v2/minhas-informacoes/boletim/{ano_letivo}/{periodo_letivo}/"
+    response = requests.get(boletim_url, headers=headers)
+
+    if response.status_code == 401:  # Se o token estiver expirado
+        new_token = refresh_token()
+        if new_token:
+            headers["Authorization"] = f"Bearer {new_token}"
+            response = requests.get(boletim_url, headers=headers)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        logging.error(f"Erro ao obter o boletim: {response.status_code} - {response.text}")
+        return None
+
+def refresh_token():
+    token = session.get('suap_token', {}).get('refresh_token')
+    if not token:
+        return None
+
+    refresh_url = "https://suap.ifrn.edu.br/api/v2/autenticacao/token/refresh/"
+    response = requests.post(refresh_url, data={"refresh": token})
+
+    if response.status_code == 200:
+        new_token = response.json().get("access")
+        if new_token:
+            session['suap_token']['access_token'] = new_token
+            return new_token
+    logging.error(f"Erro ao renovar o token: {response.status_code} - {response.text}")
+    return None
+
 @app.route('/boletim')
 def boletim():
     if 'suap_token' in session:
         try:
-            # Substitua o endpoint abaixo pelo endpoint correto do boletim no SUAP
-            response = oauth.suap.get('v2/minhas-informacoes/boletim')
-            response.raise_for_status()
-            boletim_data = response.json()  # Ajuste conforme o formato da resposta do SUAP
-            return render_template('boletim.html', boletim=boletim_data)
+            anos = list(range(2020, 2025))  
+            ano_selecionado = request.args.get('ano', str(anos[-1]))  # Pega o ano da query string ou o mais recente
+            periodo_letivo = 1  # Exemplo: período letivo fixo
+
+            # Obtendo os dados do boletim do SUAP
+            boletim_data = get_boletim(ano_selecionado, periodo_letivo)
+            
+            if boletim_data:
+                logging.info(f"Boletim do ano {ano_selecionado} recebido com sucesso.")
+            else:
+                flash('Nenhum boletim encontrado ou erro ao buscar o boletim.')
+            
+            return render_template(
+                'boletim.html',
+                boletim=boletim_data,
+                anos=anos, 
+                ano_selecionado=ano_selecionado,
+                user_data=session.get('user_data', {})
+            )
         except Exception as e:
-            logging.error(f"Error fetching boletim data: {e}")
-            flash('Failed to fetch boletim data. Please try again later.')
+            logging.error(f"Erro ao buscar o boletim: {e}")
+            flash('Falha ao buscar os dados. Tente novamente mais tarde.')
+            return redirect(url_for('index'))
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run()
