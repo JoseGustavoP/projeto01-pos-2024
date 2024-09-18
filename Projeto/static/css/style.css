@@ -1231,3 +1231,35 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+/* Estilo para a tabela do boletim */
+.boletim-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.boletim-table thead {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.boletim-table th,
+.boletim-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: right;
+}
+
+.boletim-table th:first-child,
+.boletim-table td:first-child {
+  text-align: left;
+}
+
+.boletim-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.boletim-table tr:hover {
+  background-color: #f1f1f1;
+}

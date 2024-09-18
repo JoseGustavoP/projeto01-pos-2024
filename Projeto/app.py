@@ -27,6 +27,7 @@ def index():
             response.raise_for_status()  # Raises an error for bad HTTP status
             user_data = response.json()
             print("User Data:", user_data)  # Debug print to check the data structure
+            session['user_data'] = user_data  # Store user data in the session
             return render_template('user.html', user_data=user_data)
         except Exception as e:
             logging.error(f"Error fetching user data: {e}")

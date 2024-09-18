@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
 
+{% block Perfilnavbar %}
+<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+    {% if user_data %}
+    <img src="{{ user_data.get('url_foto_150x200', '/static/default-profile.png') }}" alt="Profile"
+      class="rounded-circle">
+    {% else %}
+    
+<p>Please log in to see your profile.</p>
+    {% endif %}
+    <span class="d-none d-md-block dropdown-toggle ps-2"> {% if user_data %}
+      {{ user_data.get('nome_usual', 'Nome não disponível') }}
+      {% else %}
+      {% endif %}</span>
+  </a><!-- End Profile Iamge Icon -->
+{% endblock %}
+
 {% block content %}
     <h2>{{ user_data.get('nome_usual', 'Nome não disponível') }}</h2>
-    <img src="{{ user_data.get('url_foto_150x200', '/static/default-profile.png') }}" alt="Foto do Usuário">
-
     <h3>Selecione o Ano do Boletim</h3>
     <form method="GET" action="{{ url_for('boletim') }}">
         <label for="ano">Ano:</label>
@@ -17,14 +31,18 @@
 
     {% if boletim %}
         <h3>Boletim do Ano {{ ano_selecionado }}</h3>
-        <table>
+        <table class="boletim-table">
             <thead>
                 <tr>
                     <th>Disciplina</th>
                     <th>Nota 1</th>
+                    <th>Falta 1</th>
                     <th>Nota 2</th>
+                    <th>Falta 2</th>
                     <th>Nota 3</th>
+                    <th>Falta 3</th>
                     <th>Nota 4</th>
+                    <th>Falta 4</th>
                     <th>Média Final</th>
                 </tr>
             </thead>
@@ -32,10 +50,14 @@
                 {% for disciplina in boletim %}
                     <tr>
                         <td>{{ disciplina.disciplina }}</td>
-                        <td>{{ disciplina.nota_etapa_1 }}</td>
-                        <td>{{ disciplina.nota_etapa_2 }}</td>
-                        <td>{{ disciplina.nota_etapa_3 }}</td>
-                        <td>{{ disciplina.nota_etapa_4 }}</td>
+                        <td>{{ disciplina.nota_etapa_1.nota if disciplina.nota_etapa_1.nota is not none else '-' }}</td>
+                        <td>{{ disciplina.nota_etapa_1.faltas }}</td>
+                        <td>{{ disciplina.nota_etapa_2.nota if disciplina.nota_etapa_2.nota is not none else '-' }}</td>
+                        <td>{{ disciplina.nota_etapa_2.faltas }}</td>
+                        <td>{{ disciplina.nota_etapa_3.nota if disciplina.nota_etapa_3.nota is not none else '-' }}</td>
+                        <td>{{ disciplina.nota_etapa_3.faltas }}</td>
+                        <td>{{ disciplina.nota_etapa_4.nota if disciplina.nota_etapa_4.nota is not none else '-' }}</td>
+                        <td>{{ disciplina.nota_etapa_4.faltas }}</td>
                         <td>{{ disciplina.media_disciplina }}</td>
                     </tr>
                 {% endfor %}
@@ -45,5 +67,5 @@
         <p>Nenhum boletim disponível para o ano {{ ano_selecionado }}.</p>
     {% endif %}
 
-    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    
 {% endblock %}
