@@ -50,14 +50,16 @@
         <img src="static/img/logo.png" alt="">
         <span class="d-none d-lg-block">CPSUAP</span>
       </a>
+      {% if user_data %}
       <i class="bi bi-list toggle-sidebar-btn"></i>
+      {% endif %}
     </div><!-- End Logo -->
 
-  
 
+    {% if user_data %}
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-        </li><!-- End Search Icon-->
+
 
         <li class="nav-item dropdown">
 
@@ -72,7 +74,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            
+
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -120,8 +122,6 @@
             <img src="{{ user_data.get('url_foto_150x200', '/static/default-profile.png') }}" alt="Profile"
               class="rounded-circle">
             {% else %}
-            
-            <p>Please log in to see your profile.</p>
             {% endif %}
             <span class="d-none d-md-block dropdown-toggle ps-2"> {% if user_data %}
               {{ user_data.get('nome_usual', 'Nome não disponível') }}
@@ -143,9 +143,10 @@
 
       </ul>
     </nav><!-- End Icons Navigation -->
-
+    {% else %}
+    {% endif %}
   </header><!-- End Header -->
-
+  {% if user_data %}
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
@@ -382,7 +383,9 @@
     </ul>
 
   </aside><!-- End Sidebar-->
+  {% else %}
 
+  {% endif %}
   <main id="main" class="main">
     {% block content %}
     {% endblock %}
