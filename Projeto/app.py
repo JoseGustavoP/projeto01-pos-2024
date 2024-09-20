@@ -2,7 +2,10 @@ from flask import Flask, redirect, url_for, session, request, render_template, f
 from authlib.integrations.flask_client import OAuth
 import logging
 import requests
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  # Carregar variáveis de ambiente
 app = Flask(__name__)
 app.debug = True
 app.secret_key = 'development'
@@ -10,8 +13,8 @@ oauth = OAuth(app)
 
 oauth.register(
     name='suap',
-    client_id="O9nFwVfQzWWqXv4Vmkvs5nJ17tosNU45nZ3FX69d",
-    client_secret="E9n0UmZRpy4FhfZjqQKlUP5dob6dLYntcnq11DMcBBBVioYrxUKyvdNFDvmGXnqu4uKE0yrb0c3Po4EUWqJ62QsZpMelXjSiUVmxaUCbJSLTIF8ZdU8HnLu9j5KH0zh5",
+    client_id=os.getenv('CLIENT_ID'),
+    client_secret=os.getenv('CLIENT_SECRET'),
     api_base_url='https://suap.ifrn.edu.br/api/',
     request_token_url=None,
     access_token_method='POST',
