@@ -38,3 +38,34 @@ img {
     max-height: 100px;
     margin-bottom: 20px;
 }
+
+#nomedobagui{
+    background-color: black !important;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.user-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.user-info p {
+    margin: 5px 0;
+}
+
+.user-info img {
+    width: 150px;
+    height: 200px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

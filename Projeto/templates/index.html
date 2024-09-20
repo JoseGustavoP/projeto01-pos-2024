@@ -1,8 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>{% block title %} Login OAuth SUAP {% endblock %}</h2>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
 
-    <p><a href="{{url_for('login')}}">Login</a></p>
+    .login-button {
+        padding: 10px 40px;
+        background-color: black !important;
+        color: white !important;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .login-button:hover {
+        background-color: #28a745 !important;
+    }
+</style>
+</head>
+
+<body>
+    <div class="login-link">
+        <a href="{{url_for('login')}}" target="_blank" class="login-button">Acessar Sistema (Suap)</a>
+    </div>
+</body>
+
 
 {% endblock %}

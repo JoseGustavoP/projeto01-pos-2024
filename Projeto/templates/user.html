@@ -1,20 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .user-profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .user-info {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .user-info p {
+        margin: 5px 0;
+    }
+
+    .user-info img {
+        width: 150px;
+        height: 200px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="user-profile">
     <h2>{{ user_data.get('nome_usual', 'Nome não disponível') }}</h2>
     <img src="{{ user_data.get('url_foto_150x200', '/static/default-profile.png') }}" alt="Foto do Usuário">
-
-    <p><b>Nome Usual</b>: {{ user_data.get('nome_usual', 'Nome não disponível') }}</p>
-    <p><b>Nome Completo</b>: {{ user_data.get('nome_completo', 'Nome completo não disponível') }}</p>
-    <p><b>Email</b>: {{ user_data.get('email', 'Email não disponível') }}</p>
-    <p><b>Telefone</b>: {{ user_data.get('telefone', 'Telefone não disponível') }}</p>
-    <p><b>Endereço</b>: {{ user_data.get('endereco', 'Endereço não disponível') }}</p>
-    <p><b>Data de Nascimento</b>: {{ user_data.get('data_nascimento', 'Data de Nascimento não disponível') }}</p>
-    <p><b>Gênero</b>: {{ user_data.get('genero', 'Gênero não disponível') }}</p>
-    <p><b>Data de Registro</b>: {{ user_data.get('data_registro', 'Data de Registro não disponível') }}</p>
-    <p><b>CPF</b>: {{ user_data.get('cpf', 'CPF não disponível') }}</p>
-    <p><b>Identidade</b>: {{ user_data.get('identidade', 'Identidade não disponível') }}</p>
-    <p><b>Instituição</b>: {{ user_data.get('instituicao', 'Instituição não disponível') }}</p>
-    <!-- Adicione mais variáveis conforme necessário -->
-
+    <div class="user-info">
+        <p><b>Nome Usual</b>: {{ user_data.get('nome_usual', 'Nome não disponível') }}</p>
+        <p><b>Nome Completo</b>: {{ user_data.get('vinculo', 'Nome completo não disponível').get('nome', 'Nome completo não disponível') }}</p>
+        <p><b>Matricula</b>: {{ user_data.get('matricula', 'Nome não disponível') }}</p>
+        <p><b>Email</b>: {{ user_data.get('email', 'Email não disponível') }}</p>
+        <p><b>Telefone</b>: {{ user_data.get('telefone', 'Telefone não disponível') }}</p>
+        <p><b>Endereço</b>: {{ user_data.get('endereco', 'Endereço não disponível') }}</p>
+        <p><b>Data de Nascimento</b>: {{ user_data.get('data_nascimento', 'Data de Nascimento não disponível') }}</p>
+        <p><b>Gênero</b>: {{ user_data.get('genero', 'Gênero não disponível') }}</p>
+        <p><b>Data de Registro</b>: {{ user_data.get('data_registro', 'Data de Registro não disponível') }}</p>
+        <p><b>CPF</b>: {{ user_data.get('cpf', 'CPF não disponível') }}</p>
+        <p><b>Identidade</b>: {{ user_data.get('identidade', 'Identidade não disponível') }}</p>
+        <p><b>Instituição</b>: {{ user_data.get('instituicao', 'Instituição não disponível') }}</p>
+        <!-- Adicione mais variáveis conforme necessário -->
+    </div>
+</div>
 {% endblock %}
