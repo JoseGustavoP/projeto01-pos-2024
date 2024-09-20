@@ -17,17 +17,22 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ user_data.get('nome_usual', 'Nome não disponível') }}</h2>
-    <h3>Selecione o Ano do Boletim</h3>
-    <form method="GET" action="{{ url_for('boletim') }}">
-        <label for="ano">Ano:</label>
-        <select name="ano" id="ano">
-            {% for ano in anos %}
-                <option value="{{ ano }}" {% if ano == ano_selecionado %}selected{% endif %}>{{ ano }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Visualizar</button>
+<div style="text-align: center; font-family: Arial, sans-serif; margin-top: 20px;">
+    <h2 style="color: #2c3e50;">{{ user_data.get('nome_usual', 'Nome não disponível') }}</h2>
+    <h3 style="color: #16a085;">Selecione o Ano do Boletim</h3>
+    <form method="GET" action="{{ url_for('boletim') }}" style="display: inline-block; margin-top: 20px;">
+        <div style="margin-bottom: 15px;">
+            <label for="ano" style="font-size: 18px; color: #34495e;">Ano:</label>
+            <select name="ano" id="ano" style="padding: 5px 10px; font-size: 16px; border-radius: 5px; border: 1px solid #bdc3c7;">
+                {% for ano in anos %}
+                    <option value="{{ ano }}" {% if ano == ano_selecionado %}selected{% endif %}>{{ ano }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" style="background-color: #16a085; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Visualizar</button>
     </form>
+</div>
+
 
     {% if boletim %}
         <h3>Boletim do Ano {{ ano_selecionado }}</h3>

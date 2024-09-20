@@ -37,14 +37,11 @@
         <p><b>Nome Completo</b>: {{ user_data.get('vinculo', 'Nome completo não disponível').get('nome', 'Nome completo não disponível') }}</p>
         <p><b>Matricula</b>: {{ user_data.get('matricula', 'Nome não disponível') }}</p>
         <p><b>Email</b>: {{ user_data.get('email', 'Email não disponível') }}</p>
-        <p><b>Telefone</b>: {{ user_data.get('telefone', 'Telefone não disponível') }}</p>
-        <p><b>Endereço</b>: {{ user_data.get('endereco', 'Endereço não disponível') }}</p>
+        <p><b>Curso</b>: {{ user_data.get('vinculo', 'Curso não disponível').get('curso', 'curso não disponível') }}</p>
+        <p><b>Curriculo Lattes</b>: {{ user_data.get('vinculo', 'Curriculo Lattes não disponível').get('curriculo_lattes', 'Curriculo Lattes não disponível') }}</p>
         <p><b>Data de Nascimento</b>: {{ user_data.get('data_nascimento', 'Data de Nascimento não disponível') }}</p>
-        <p><b>Gênero</b>: {{ user_data.get('genero', 'Gênero não disponível') }}</p>
-        <p><b>Data de Registro</b>: {{ user_data.get('data_registro', 'Data de Registro não disponível') }}</p>
         <p><b>CPF</b>: {{ user_data.get('cpf', 'CPF não disponível') }}</p>
-        <p><b>Identidade</b>: {{ user_data.get('identidade', 'Identidade não disponível') }}</p>
-        <p><b>Instituição</b>: {{ user_data.get('instituicao', 'Instituição não disponível') }}</p>
+        <p><b>Instituição</b>: IFRN {{ user_data.get('vinculo', 'Campus não disponível').get('campus', 'Campus não disponível') }}</p>
         <!-- Adicione mais variáveis conforme necessário -->
     </div>
 </div>
